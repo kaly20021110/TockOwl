@@ -1,21 +1,21 @@
-## BFT-MVBA
+## TockOwl
 
 ![build status](https://img.shields.io/github/actions/workflow/status/asonnino/hotstuff/rust.yml?style=flat-square&logo=GitHub&logoColor=white&link=https%3A%2F%2Fgithub.com%2Fasonnino%2Fhotstuff%2Factions)
-[![golang](https://img.shields.io/badge/golang-1.21.1-blue?style=flat-square&logo=golang)](https://www.rust-lang.org)
-[![python](https://img.shields.io/badge/python-3.9-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org/downloads/release/python-390/)
+[![golang](https://img.shields.io/badge/golang-1.21.1-blue?style=flat-square&logo=golang)](https://golang.google.cn/doc/go1.21)
+[![python](https://img.shields.io/badge/python-3.10-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org/downloads/release/python-31012/)
 [![license](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)](LICENSE)
 
-This repo provides a minimal implementation of the various mvba consensus protocol. The codebase has been designed to be small, efficient, and easy to benchmark and modify. It has not been designed to run in production but uses real cryptography (kyber), networking(native), and storage (nutsdb).
+This repo provides a minimal implementation of the TockOwl protocol. The codebase has been designed to be small, efficient, and easy to benchmark and modify. It has not been designed to run in production but uses real cryptography (kyber), networking(native), and storage (nutsdb).
 
-Say something about bft-mvba...
+Say something about TockOwl...
 
 ## Quick Start
 
-lightDAG is written in Golang, but all benchmarking scripts are written in Python and run with Fabric. To deploy and benchmark a testbed of 4 nodes on your local machine, clone the repo and install the python dependencies:
+TockOwl is written in Golang, but all benchmarking scripts are written in Python and run with Fabric. To deploy and benchmark a testbed of 4 nodes on your local machine, clone the repo and install the python dependencies:
 
 ```shell
-git clone https://github.com/ac-dcz/BFT-MVBA
-cd BFT-MVBA/benchmark
+git clone https://github.com/kaly20021110/TockOwl.git
+cd TockOwl/benchmark
 pip install -r requirements.txt
 ```
 
@@ -28,138 +28,42 @@ fab local
 
 This command may take a long time the first time you run it (compiling golang code in release mode may be slow) and you can customize a number of benchmark parameters in fabfile.py. When the benchmark terminates, it displays a summary of the execution similarly to the one below.
 
-- [CKPS01-MVBA](https://eprint.iacr.org/2001/006)
-```
-Setting up testbed...
-Running mvba
-0 byzantine nodes
-tx_size 250 byte, batch_size 500, rate 5000 tx/s
-DDOS attack False
-Waiting for the nodes to synchronize...
-Running benchmark (30 sec)...
-Parsing logs...
-
------------------------------------------
- SUMMARY:
------------------------------------------
- + CONFIG:
- Protocol: mvba 
- DDOS attack: False 
- Committee size: 4 nodes
- Input rate: 5,000 tx/s
- Transaction size: 250 B
- Batch size: 500 tx/Batch
- Faults: 0 nodes
- Execution time: 30 s
-
- + RESULTS:
- Consensus TPS: 4,877 tx/s
- Consensus latency: 94 ms
-
- End-to-end TPS: 4,874 tx/s
- End-to-end latency: 586 ms
------------------------------------------
-```
-
-- [VABA](https://dl.acm.org/doi/10.1145/3293611.3331612)
-```
-Setting up testbed...
-Running vaba
-0 byzantine nodes
-tx_size 250 byte, batch_size 500, rate 5000 tx/s
-DDOS attack False
-Waiting for the nodes to synchronize...
-Running benchmark (30 sec)...
-Parsing logs...
-
------------------------------------------
- SUMMARY:
------------------------------------------
- + CONFIG:
- Protocol: vaba 
- DDOS attack: False 
- Committee size: 4 nodes
- Input rate: 5,000 tx/s
- Transaction size: 250 B
- Batch size: 500 tx/Batch
- Faults: 0 nodes
- Execution time: 30 s
-
- + RESULTS:
- Consensus TPS: 4,962 tx/s
- Consensus latency: 76 ms
-
- End-to-end TPS: 4,953 tx/s
- End-to-end latency: 119 ms
-----------------------------------------
-```
-
-- [SMVBA](https://eprint.iacr.org/2022/027)
+- [TockOwl]
 ```
 Starting local benchmark
 Setting up testbed...
-Running smvba
+Running TockOwl
 0 byzantine nodes
-tx_size 250 byte, batch_size 500, rate 5000 tx/s
+tx_size 256 byte, batch_size 512, rate 5000 tx/s
 DDOS attack False
 Waiting for the nodes to synchronize...
-Running benchmark (30 sec)...
+Running benchmark (40 sec)...
+start at 2025-08-25 18:33:20
+stop at 2025-08-25 18:33:59
 Parsing logs...
 
 -----------------------------------------
  SUMMARY:
 -----------------------------------------
  + CONFIG:
- Protocol: smvba 
+ Protocol: TockOwl 
  DDOS attack: False 
  Committee size: 4 nodes
  Input rate: 5,000 tx/s
- Transaction size: 250 B
- Batch size: 500 tx/Batch
+ Transaction size: 256 B
+ Batch size: 512 tx/Batch
  Faults: 0 nodes
- Execution time: 30 s
+ Execution time: 38 s
 
  + RESULTS:
- Consensus TPS: 5,140 tx/s
- Consensus latency: 70 ms
- 
- End-to-end TPS: 5,130 tx/s
- End-to-end latency: 105 ms
------------------------------------------
-```
+ Consensus TPS: 19,431 tx/s
+ Consensus latency: 62 ms
 
-- Mercury
-
-```
-Starting local benchmark
-Setting up testbed...
-Running Mercury
-0 byzantine nodes
-tx_size 250 byte, batch_size 500, rate 5000 tx/s
-DDOS attack False
-Waiting for the nodes to synchronize...
-Running benchmark (30 sec)...
-Parsing logs...
-
------------------------------------------
- SUMMARY:
------------------------------------------
- + CONFIG:
- Protocol: Mercury 
- DDOS attack: False 
- Committee size: 4 nodes
- Input rate: 5,000 tx/s
- Transaction size: 250 B
- Batch size: 500 tx/Batch
- Faults: 0 nodes
- Execution time: 30 s
-
- + RESULTS:
- Consensus TPS: 15,780 tx/s
- Consensus latency: 121 ms
-
- End-to-end TPS: 15,748 tx/s
- End-to-end latency: 156 ms
+ End-to-end TPS: 19,489 tx/s
+ End-to-end latency: 114 ms
+ The epoch count can not commit block: 0
+ The all epoch counts : 564
+ The all epoch count commit block: 1,465
 -----------------------------------------
 ```
 
@@ -179,7 +83,7 @@ Set up your Aliyun credentials to enable programmatic access to your account fro
 
 **2.  Add your SSH public key to your Aliyun account**
 
-You must now [add your SSH public key to your Aliyun account](https://help.aliyun.com/document_detail/201472.html). This operation is manual and needs to be repeated for each Aliyun region that you plan to use. Upon importing your key, Aliyun requires you to choose a 'name' for your key; ensure you set the same name on all Aliyun regions. This SSH key will be used by the python scripts to execute commands and upload/download files to your Aliyun instances. If you don't have an SSH key, you can create one using [ssh-keygen](https://www.ssh.com/ssh/keygen/):
+You must now [add your SSH public key to your Aliyun account](https://www.alibabacloud.com/help/en/yunxiao/user-guide/configure-ssh-key). This operation is manual and needs to be repeated for each Aliyun region that you plan to use. Upon importing your key, Aliyun requires you to choose a 'name' for your key; ensure you set the same name on all Aliyun regions. This SSH key will be used by the python scripts to execute commands and upload/download files to your Aliyun instances. If you don't have an SSH key, you can create one using [ssh-keygen](https://www.ssh.com/ssh/keygen/):
 
 ```
 ssh-keygen -f ~/.ssh/Aliyun
@@ -187,17 +91,18 @@ ssh-keygen -f ~/.ssh/Aliyun
 
 **3. Configure the testbed**
 
-The file [settings.json](https://github.com/asonnino/hotstuff/blob/main/benchmark/settings.json) located in [BFT-MVBA/benchmark](https://github.com/ac-dcz/BFT-MVBA/tree/main/benchmark) contains all the configuration parameters of the testbed to deploy. Its content looks as follows:
+The file [settings.json](https://github.com/kaly20021110/TockOwl/blob/main/benchmark/settings.json) located in [TockOwl/benchmark](https://github.com/kaly20021110/TockOwl/tree/main/benchmark) contains all the configuration parameters of the testbed to deploy. Its content looks as follows:
 
 ```json
 {
     "key": {
-        "name": "BFT-MVBA",
+        "name": "TockOwl",
         "path": "/root/.ssh/id_rsa",
         "accesskey": "/root/.aliyun/access.json"
     },
     "ports": {
-        "consensus": 8000
+        "consensus": 8000,
+        "mempool":7000
     },
     "instances": {
         "type": "ecs.g6e.xlarge",
@@ -215,7 +120,7 @@ The first block (`key`) contains information regarding your SSH key and Access K
 
 ```json
 "key": {
-    "name": "BFT-MVBA",
+    "name": "TockOwl",
     "path": "/root/.ssh/id_rsa",
     "accesskey": "/root/.aliyun/access.json"
 }
@@ -225,7 +130,8 @@ The second block (`ports`) specifies the TCP ports to use:
 
 ```json
 "ports": {
-    "consensus": 8000
+    "consensus": 8000,
+    "mempool": 7000
 }
 ```
 
@@ -245,9 +151,9 @@ The the last block (`instances`) specifies the[Aliyun Instance Type](https://hel
 
 **4. Create a testbed**
 
-The Aliyun instances are orchestrated with [Fabric](http://www.fabfile.org/) from the file [fabfile.py](https://github.com/ac-dcz/BFT-MVBA/blob/main/benchmark/fabfile.py) (located in [BFT-MVBA/benchmark](https://github.com/ac-dcz/BFT-MVBA/tree/main/benchmark)) you can list all possible commands as follows:
+The Aliyun instances are orchestrated with [Fabric](http://www.fabfile.org/) from the file [fabfile.py](https://github.com/kaly20021110/TockOwl/blob/main/benchmark/fabfile.py) (located in [TockOwl/benchmark](https://github.com/kaly20021110/TockOwl/tree/main/benchmark)) you can list all possible commands as follows:
 
-The command `fab create` creates new Aliyun instances; open [fabfile.py](https://github.com/ac-dcz/BFT-MVBA/blob/main/benchmark/fabfile.py) and locate the `create` task:
+The command `fab create` creates new Aliyun instances; open [fabfile.py](https://github.com/kaly20021110/TockOwl/blob/main/benchmark/fabfile.py) and locate the `create` task:
 
 ```python
 @task
@@ -271,7 +177,7 @@ You can then install goland on the remote instances with `fab install`:
 $ fab install
 
 Installing rust and cloning the repo...
-Initialized testbed of 10 nodes
+Initialized testbed of 8 nodes
 ```
 
 Next,you should upload the executable file
@@ -285,3 +191,6 @@ $ fab uploadexec
 ```shell
 $ fab remote
 ```
+
+## License
+This software is licensed as [Apache 2.0](https://github.com/kaly20021110/TockOwl/blob/main/LICENSE)
