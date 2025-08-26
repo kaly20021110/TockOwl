@@ -28,7 +28,7 @@ fab local
 
 This command may take a long time the first time you run it (compiling golang code in release mode may be slow) and you can customize a number of benchmark parameters in fabfile.py. When the benchmark terminates, it displays a summary of the execution similarly to the one below.
 
-- [TockOwl]
+- [TockOwl](https://eprint.iacr.org/2025/134)
 ```
 Starting local benchmark
 Setting up testbed...
