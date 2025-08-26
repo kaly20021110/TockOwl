@@ -37,9 +37,7 @@ Running TockOwl
 tx_size 256 byte, batch_size 512, rate 5000 tx/s
 DDOS attack False
 Waiting for the nodes to synchronize...
-Running benchmark (40 sec)...
-start at 2025-08-25 18:33:20
-stop at 2025-08-25 18:33:59
+Running benchmark (30 sec)...
 Parsing logs...
 
 -----------------------------------------
@@ -53,17 +51,17 @@ Parsing logs...
  Transaction size: 256 B
  Batch size: 512 tx/Batch
  Faults: 0 nodes
- Execution time: 38 s
+ Execution time: 25 s
 
  + RESULTS:
- Consensus TPS: 19,431 tx/s
- Consensus latency: 62 ms
+ Consensus TPS: 20,236 tx/s
+ Consensus latency: 76 ms
 
- End-to-end TPS: 19,489 tx/s
- End-to-end latency: 114 ms
- The epoch count can not commit block: 0
- The all epoch counts : 564
- The all epoch count commit block: 1,465
+ End-to-end TPS: 20,323 tx/s
+ End-to-end latency: 147 ms
+ The epoch count can not commit block: 55
+ The all epoch counts : 315
+ The all epoch count commit block: 973
 -----------------------------------------
 ```
 
